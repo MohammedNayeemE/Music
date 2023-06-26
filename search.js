@@ -183,7 +183,7 @@ function buttonClickHandler(event){
 
   add.addEventListener('click',()=>{
       const NameOfSong = document.getElementById("sname").value;
-      if(NameOfSong.length == 0) alert("YOU THOUGHT I AM FOOL");
+      if(NameOfSong.length == 0) alert("YOU THINK I AM FOOL");
       let obj = {
         song : `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5QDLhrAOJJdNAmCTJ8xMyW?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`,
         Name : NameOfSong
