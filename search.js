@@ -302,21 +302,68 @@ function buttonClickHandler(event){
 
     
   })
-  
-  function search(array){
-    let found = false;
-    let SongName = searchName.value;
-    for(let i=0;i<array.length;i++){
-        if(array[i].Name === SongName){
-          alert("FOUND");
-          found = true;
-        }
-    }
-    if(!found){
-      alert("Alas! Song Not Found, Check in other Playlists");
+  function search(array) {
+    // Get the search term from the input field
+    const searchInput = searchName.value;
+    
+    // Convert the search term to lowercase and remove leading/trailing spaces
+    const searchTerm = searchInput.toLowerCase().trim();
+    
+    // Filter the array of songs based on the search term
+    const filteredSongs = array.filter(function(song) {
+      // Convert the song name to lowercase for case-insensitive matching
+      const songName = song.Name.toLowerCase();
+      
+      // Check if the song name includes the search term
+      console.log(songName.includes(searchTerm));
+      return songName.includes(searchTerm);
+    });
+    console.log(filteredSongs);
+    console.log(filteredSongs.length);
 
+    // Display the filtered songs
+    if(filteredSongs.length ===0){
+      displayNoneMessage();
+    }
+    else{
+    displayFilteredSongs(filteredSongs);
     }
   }
+  function displayFilteredSongs(songs) {
+    viwerList.innerHTML = "";
+    
+
+
+    for (let i = 0; i < songs.length; i++) {
+      const song = songs[i];
+      const songNameHolder = document.createElement("li");
+      viwerList.appendChild(songNameHolder);
+      songNameHolder.textContent = song.Name;
+  
+      const buttonsContainer = document.createElement("div");
+      buttonsContainer.classList.add("buttons-container");
+      songNameHolder.appendChild(buttonsContainer);
+  
+      const buttons = ["Like", "Delete", "Save"];
+      for (let j = 0; j < buttons.length; j++) {
+        const button = document.createElement("button");
+        button.classList.add("feedButtons");
+        button.textContent = buttons[j];
+        buttonsContainer.appendChild(button);
+  
+        button.addEventListener("click", buttonClickHandler);
+      }
+    }
+  }
+  function displayNoneMessage(){
+    viwerList.innerHTML = "";
+    let message = document.createElement("li");
+    message.textContent = "Nothing is found";
+    viwerList.appendChild(message);
+  }
+  
+  
+ 
 
   const feedBackButtons = document.querySelectorAll(".feedButtons");
 
